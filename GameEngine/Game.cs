@@ -183,8 +183,12 @@ namespace GameEngine {
 
             // Load the level.
             string levelPath = string.Format("Content/Levels/{0}.txt", levelIndex);
-            using (Stream fileStream = TitleContainer.OpenStream(levelPath))
+            using (Stream fileStream = TitleContainer.OpenStream(levelPath)) {
                 level = new Level(Services, fileStream, levelIndex);
+                level.visableBox = new Vector2(
+                    GraphicsDevice.PresentationParameters.BackBufferWidth,
+                    GraphicsDevice.PresentationParameters.BackBufferHeight);
+            }
         }
 
         private void ReloadCurrentLevel() {

@@ -57,6 +57,16 @@ namespace GameEngine {
         }
         bool reachedExit;
 
+        public Vector2 visableBox {
+            get;
+            set;
+        }
+        public class Offset { public float X = 0, Y =0; }
+        public Offset positionOffset {
+            get;
+            set;
+        }
+
         public TimeSpan TimeRemaining {
             get { return timeRemaining; }
         }
@@ -405,7 +415,7 @@ namespace GameEngine {
 
                 if (pickup.BoundingCircle.Intersects(Player.BoundingRectangle)) {
                     pickups.RemoveAt(i--);
-                    OnGemCollected(pickup, Player);
+                    OnPickupCollected(pickup, Player);
                 }
             }
         }
@@ -429,7 +439,7 @@ namespace GameEngine {
         /// </summary>
         /// <param name="pickup">The gem that was collected.</param>
         /// <param name="collectedBy">The player who collected this gem.</param>
-        private void OnGemCollected(Pickup pickup, Player collectedBy) {
+        private void OnPickupCollected(Pickup pickup, Player collectedBy) {
             score += Pickup.PointValue;
 
             pickup.OnCollected(collectedBy);
